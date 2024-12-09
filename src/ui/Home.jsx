@@ -95,10 +95,12 @@ function Home() {
                   <Typography variant="body2" sx={{ mt: 1 }}>
                     Date: {new Date().toLocaleDateString()}
                   </Typography>
+                  <br />
+                  <Typography variant="body2">Project Report on</Typography>
                   <Typography variant="h6" sx={{ mt: 2 }}>
-                    AIRBNB DATA CLEANING, PROCESSING, AND ADVANCED ANALYSIS
+                    URBAN MOBILITY AND INFRASTRUCTURE OPTIMIZATION USING OPENSTREETMAP DATA
                   </Typography>
-                  <Typography variant="body2">Project Report</Typography>
+
                 </Box>
               </Box>
 
@@ -114,7 +116,7 @@ function Home() {
                 }}
               >
                 <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 'bold', color: 'primary.main' }}>
-                  Welcome to AIRBNB DATA CLEANING, PROCESSING, AND ADVANCED ANALYSIS
+                  Welcome to <br />URBAN MOBILITY AND INFRASTRUCTURE OPTIMIZATION USING OPENSTREETMAP DATA
                 </Typography>
                 <Button
                   variant="contained"
