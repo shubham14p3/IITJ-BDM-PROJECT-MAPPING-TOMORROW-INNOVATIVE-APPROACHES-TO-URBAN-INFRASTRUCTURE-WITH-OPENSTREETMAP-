@@ -32,6 +32,166 @@ def test_bigquery_connection():
         # Handle errors
         return {"success": False, "error": str(e)}, 500
 
+VALID_TABLES = [
+    # "history_changesets",     
+    # "planet_changesets", 
+    "history_nodes", 
+    # "history_relations", 
+    # "history_ways",
+    # "planet_features", 
+    # "planet_features_points",
+    # "planet_layers", 
+    # "planet_nodes", 
+    # "planet_relations", 
+    # "planet_ways"
+]
+
+DATASET = "bigquery-public-data.geo_openstreetmap"  # Dataset identifier
+
+@api_routes.route('/api/get_schema', methods=['GET'])
+def get_table_schema():
+    """
+    Fetch schema details dynamically for all the tables in the dataset.
+    """
+    try:
+        table_schemas = {}
+        for table_name in VALID_TABLES:
+            table_ref = f"{DATASET}.{table_name}"
+            table = client.get_table(table_ref)  # Fetch table metadata
+
+            # Extract schema fields
+            schema = [{"name": field.name, "type": field.field_type, "mode": field.mode} for field in table.schema]
+            table_schemas[table_name] = schema
+
+        return jsonify({"success": True, "schemas": table_schemas}), 200
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+@api_routes.route('/api/dynamic_query', methods=['POST'])
+def dynamic_query():
+    """
+    Run a query dynamically based on the selected table and optional filters.
+    """
+    try:
+        # Parse input
+        data = request.json
+        table_name = data.get("table_name")
+        limit = data.get("limit", 100)
+
+        # Validate table name
+        if not table_name or table_name not in VALID_TABLES:
+            return jsonify({"success": False, "error": f"Table '{table_name}' does not exist in the dataset."}), 500
+
+        # Fetch schema for the table
+        table_ref = f"{DATASET}.{table_name}"
+        table = client.get_table(table_ref)
+
+        # Extract column names dynamically
+        columns = [field.name for field in table.schema]
+
+        # Construct dynamic query
+        query = f"""
+        SELECT {', '.join(columns)}
+        FROM `{table_ref}`
+        LIMIT {limit}
+        """
+        query_job = client.query(query)
+        df = query_job.to_dataframe()
+
+        # Convert GEOGRAPHY and RECORD types to string for serialization
+        for field in table.schema:
+            if field.field_type in ["GEOGRAPHY", "RECORD"]:
+                df[field.name] = df[field.name].astype(str)
+
+        return jsonify({"success": True, "data": df.to_dict(orient="records")}), 200
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
+
+@api_routes.route('/api/query_all_tables', methods=['GET'])
+def query_all_tables():
+    """
+    Fetch data from all valid tables and log the output to the console for debugging.
+    Skip specific tables that are already known to work fine.
+    """
+    results = {}
+    errors = {}
+    skip_tables = ["history_changesets", "planet_changesets"]  # Skip these tables
+
+    for table_name in VALID_TABLES:
+        if table_name in skip_tables:
+            print(f"Skipping table: {table_name} (already working fine)")
+            continue
+
+        print(f"Processing table: {table_name}")  # Log the table being processed
+        try:
+            table_ref = f"{DATASET}.{table_name}"
+            table = client.get_table(table_ref)
+            columns = [field.name for field in table.schema]
+
+            # Query the table
+            query = f"""
+            SELECT {', '.join(columns)}
+            FROM `{table_ref}`
+            LIMIT 10
+            """
+            print(f"Querying table {table_name} with query: {query}")  # Log the query
+            query_job = client.query(query)
+            df = query_job.to_dataframe()
+
+            # Convert special data types to string for serialization
+            for field in table.schema:
+                if field.field_type in ["GEOGRAPHY", "RECORD"]:
+                    df[field.name] = df[field.name].apply(
+                        lambda x: str(x) if pd.notnull(x) else None
+                    )
+                elif field.mode == "REPEATED":
+                    df[field.name] = df[field.name].apply(
+                        lambda x: list(x) if isinstance(x, (list, tuple)) else None
+                    )
+                elif field.field_type == "NUMERIC":
+                    df[field.name] = df[field.name].apply(
+                        lambda x: x if pd.notnull(x) else None
+                    )
+
+            # Replace NaN values with None for JSON serialization
+            df = df.where(pd.notnull(df), None)
+
+            # Log the result for debugging
+            print(f"Results for table {table_name}:\n{df.head(10)}")
+            results[table_name] = df.to_dict(orient="records")
+        except Exception as e:
+            # Log the error for debugging
+            print(f"Error processing table {table_name}: {e}")
+            errors[table_name] = str(e)
+
+    # Log summary of results and errors
+    print("\nProcessing Complete.")
+    print(f"Successful tables: {list(results.keys())}")
+    print(f"Errors encountered: {errors}")
+
+    # Return a basic response to confirm the API call worked
+    return jsonify({"success": True, "message": "Processing complete. Check console logs for details."}), 200
+
+
+
+
+@api_routes.route('/api/validate_table/<string:table_name>', methods=['GET'])
+def validate_table(table_name):
+    """
+    Validate if a table exists in the dataset.
+    """
+    try:
+        if table_name not in VALID_TABLES:
+            return jsonify({"success": False, "error": f"Table '{table_name}' does not exist in the dataset."}), 500
+
+        return jsonify({"success": True, "message": f"Table '{table_name}' is valid."}), 200
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+
 @api_routes.route('/api/traffic', methods=['GET'])
 def get_traffic_data():
     try:

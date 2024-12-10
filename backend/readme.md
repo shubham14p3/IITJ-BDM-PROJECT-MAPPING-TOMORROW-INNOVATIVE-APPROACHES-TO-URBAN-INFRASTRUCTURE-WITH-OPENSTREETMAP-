@@ -13,3 +13,6 @@ Route	                        Visualization
 /api/road_orientation_distribution	Histogram of road orientations
 /api/fetch_raw_data
 /api/road_type_distribution
+
+/api/query_all_tables to get all schema
+/api/query_all_tables etch data from all valid tables and include table name in the response.
