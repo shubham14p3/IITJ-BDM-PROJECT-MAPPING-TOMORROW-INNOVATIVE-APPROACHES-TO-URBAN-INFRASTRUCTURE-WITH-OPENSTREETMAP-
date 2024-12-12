@@ -9,6 +9,7 @@ import {
   Modal,
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import Layout from "../layout/Layout";
 
 const Graph = () => {
   const location = useLocation();
@@ -19,32 +20,38 @@ const Graph = () => {
     {
       name: "Node Density Histogram",
       url: "/api/graph/node_density_histogram",
-      description: "This histogram shows the density of nodes by latitude, indicating the distribution of mapped features in the dataset.",
+      description:
+        "This histogram shows the density of nodes by latitude, indicating the distribution of mapped features in the dataset.",
     },
     {
       name: "Scatter Plot (Latitude vs Longitude)",
       url: "/api/graph/scatter_plot_lat_lon",
-      description: "A scatter plot mapping latitude and longitude to visualize spatial distributions of nodes.",
+      description:
+        "A scatter plot mapping latitude and longitude to visualize spatial distributions of nodes.",
     },
     {
       name: "Road Length Distribution",
       url: "/api/graph/road_length_distribution",
-      description: "A histogram showing the length distribution of roads, providing insights into road structures.",
+      description:
+        "A histogram showing the length distribution of roads, providing insights into road structures.",
     },
     {
       name: "Node Density Heatmap",
       url: "/api/graph/node_density_heatmap",
-      description: "A heatmap highlighting areas with high node densities, showing areas of detailed mapping.",
+      description:
+        "A heatmap highlighting areas with high node densities, showing areas of detailed mapping.",
     },
     {
       name: "Road Orientation Distribution",
       url: "/api/graph/road_orientation_distribution",
-      description: "A histogram showing the orientation of roads in degrees, providing insights into road alignment patterns.",
+      description:
+        "A histogram showing the orientation of roads in degrees, providing insights into road alignment patterns.",
     },
     {
       name: "Feature Type Frequency",
       url: "/api/graph/feature_type_frequency",
-      description: "A bar chart showing the frequency of feature types like highways or paths.",
+      description:
+        "A bar chart showing the frequency of feature types like highways or paths.",
     },
   ];
 
@@ -110,16 +117,33 @@ const Graph = () => {
     setSelectedGraph(null);
   };
 
-  return (
-    <Container maxWidth="lg" sx={{ paddingTop: 5, transition: "opacity 0.5s ease-in-out" }}>
+  const handleProceed = () => {
+    const successfulGraphs = graphStates
+      .filter((graph) => graph.status === "success")
+      .map((graph) => ({ name: graph.name, url: graph.url }));
+
+    navigate("/further-analysis", {
+      state: { tableName, graphs: successfulGraphs },
+    });
+  };
+
+  return (<Layout>
+    <Container
+      maxWidth="lg"
+      sx={{
+        paddingTop: 5, transition: "opacity 0.5s ease-in-out",
+        paddingBottom: 10
+      }}
+    >
       <Typography
         variant="h4"
         gutterBottom
         align="center"
         sx={{ fontWeight: "bold", color: "#333" }}
       >
-        Exploratory data analysis (EDA)  
-        <br/>Graph Visualizations for {tableName}
+        Exploratory Data Analysis (EDA)
+        <br />
+        Graph Visualizations for {tableName}
       </Typography>
 
       {globalLoading ? (
@@ -186,23 +210,8 @@ const Graph = () => {
       {/* Proceed Further Button */}
       {!globalLoading && (
         <Box textAlign="center" sx={{ marginTop: 4 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => navigate("/further-analysis")}
-          >
+          <Button variant="contained" color="primary" onClick={handleProceed}>
             Proceed to Further Analysis
-          </Button>
-        </Box>
-      )}
-      {!globalLoading && (
-        <Box textAlign="center" sx={{ marginTop: 4 }}>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => navigate("/select-table")}
-          >
-            Return to change the Table Selection
           </Button>
         </Box>
       )}
@@ -240,7 +249,9 @@ const Graph = () => {
                   marginBottom: 2,
                 }}
               />
-              <Typography variant="body1">{selectedGraph.description}</Typography>
+              <Typography variant="body1">
+                {selectedGraph.description}
+              </Typography>
               <Box textAlign="center" sx={{ marginTop: 4 }}>
                 <Button variant="contained" onClick={handleCloseModal}>
                   Close
@@ -251,6 +262,7 @@ const Graph = () => {
         </Box>
       </Modal>
     </Container>
+  </Layout>
   );
 };
 

@@ -20,6 +20,7 @@ import {
   Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Layout from "../layout/Layout";
 
 function DataAnalysis() {
   const [data, setData] = useState(null);
@@ -129,7 +130,7 @@ function DataAnalysis() {
 
 
 
-  return (
+  return (<Layout>
     <Box
       sx={{
         background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
@@ -220,7 +221,7 @@ function DataAnalysis() {
       >
         Next Step
       </Button>
-    </Box >
+    </Box ></Layout>
   );
 }
 

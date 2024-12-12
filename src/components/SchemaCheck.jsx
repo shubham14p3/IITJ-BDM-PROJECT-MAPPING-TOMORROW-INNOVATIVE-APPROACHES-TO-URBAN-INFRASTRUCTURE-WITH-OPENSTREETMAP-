@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Typography, Table, TableBody, TableCell, TableHead, TableRow, CircularProgress, Container, Button } from "@mui/material";
+import Layout from "../layout/Layout";
 
 const SchemaCheck = () => {
   const location = useLocation();
@@ -53,8 +54,11 @@ const SchemaCheck = () => {
     );
   }
 
-  return (
-    <Container maxWidth="md" sx={{ paddingTop: 5 }}>
+  return (<Layout>
+    <Container maxWidth="md" sx={{
+      paddingTop: 5,
+      paddingBottom: 10
+    }}>
       <Typography
         variant="h4"
         gutterBottom
@@ -116,7 +120,7 @@ const SchemaCheck = () => {
           Next
         </Button>
       </Box>
-    </Container>
+    </Container></Layout>
   );
 };
 

@@ -15,6 +15,7 @@ import {
   InputLabel,
   Card,
 } from "@mui/material";
+import Layout from "../layout/Layout";
 
 function DataAnalysis() {
   const [data, setData] = useState([]); // Holds the dataset
@@ -102,10 +103,10 @@ function DataAnalysis() {
             {value === null || value === undefined
               ? "-" // Handle null or undefined explicitly
               : typeof value === "boolean"
-              ? value
-                ? "Yes"
-                : "No" // Handle boolean values
-              : value} {/* Display everything else as it is */}
+                ? value
+                  ? "Yes"
+                  : "No" // Handle boolean values
+                : value} {/* Display everything else as it is */}
           </TableCell>
         ))}
       </TableRow>
@@ -115,7 +116,7 @@ function DataAnalysis() {
   // Calculate total pages for pagination
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
-  return (
+  return (<Layout>
     <Box
       sx={{
         background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
@@ -123,6 +124,7 @@ function DataAnalysis() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
+        paddingBottom: 10
       }}
     >
       <Container maxWidth="lg" sx={{ paddingTop: 5, paddingBottom: 5 }}>
@@ -194,7 +196,7 @@ function DataAnalysis() {
           </Box>
         </Card>
       </Container>
-    </Box>
+    </Box></Layout>
   );
 }
 

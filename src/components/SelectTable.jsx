@@ -10,6 +10,7 @@ import {
     Button,
     Container,
 } from "@mui/material";
+import Layout from "../layout/Layout";
 
 const SelectTable = () => {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ const SelectTable = () => {
         setSelectedTable(event.target.value); // Update selected table
     };
 
-    return (
+    return (<Layout>
         <Box
             sx={{
                 background: "linear-gradient(135deg, #f5f7fa, #c3cfe2)",
@@ -44,6 +45,7 @@ const SelectTable = () => {
                 justifyContent: "center",
                 alignItems: "center",
                 padding: 3,
+                paddingBottom:10
             }}
         >
             <Container maxWidth="sm">
@@ -97,7 +99,7 @@ const SelectTable = () => {
                     </Button>
                 </Box>
             </Container>
-        </Box>
+        </Box></Layout>
     );
 };
 

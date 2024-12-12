@@ -6,6 +6,7 @@ import MergedData from './components/MergedData';
 import SelectTable from './components/SelectTable';
 import SchemaCheck from './components/SchemaCheck';
 import Graph from './components/Graph';
+import Analysis from './components/Analysis';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/select-table" element={<SelectTable />} />
         <Route path="/schema-check" element={<SchemaCheck />} />
         <Route path="/generate-graph" element={<Graph />} />
+        <Route path="/further-analysis" element={<Analysis />} />
       </Routes>
     </Router>
   );
