@@ -1,0 +1,75 @@
+# Code need to be worked on 
+
+# @table_schema_routes.route('/api/data/history_layers', methods=['GET'])
+# def get_data_history_layers():
+#     try:
+#         query = """
+#         SELECT *
+#         FROM `bigquery-public-data.geo_openstreetmap.history_layers`
+#         LIMIT 100
+#         """
+#         query_job = client.query(query)
+#         df = query_job.to_dataframe()
+#         return jsonify(df.to_dict(orient="records")), 200
+#     except Exception as e:
+#         return jsonify({"success": False, "error": str(e)}), 500
+
+
+# @table_schema_routes.route('/api/data/history_nodes', methods=['GET'])
+# def get_data_history_nodes():
+#     try:
+#         query = """
+#         SELECT *
+#         FROM `bigquery-public-data.geo_openstreetmap.history_nodes`
+#         LIMIT 100
+#         """
+#         query_job = client.query(query)
+#         df = query_job.to_dataframe()
+#         return jsonify(df.to_dict(orient="records")), 200
+#     except Exception as e:
+#         return jsonify({"success": False, "error": str(e)}), 500
+
+
+# @table_schema_routes.route('/api/data/history_relations', methods=['GET'])
+# def get_data_history_relations():
+#     try:
+#         query = """
+#         SELECT *
+#         FROM `bigquery-public-data.geo_openstreetmap.history_relations`
+#         LIMIT 100
+#         """
+#         query_job = client.query(query)
+#         df = query_job.to_dataframe()
+#         return jsonify(df.to_dict(orient="records")), 200
+#     except Exception as e:
+#         return jsonify({"success": False, "error": str(e)}), 500
+
+
+# @table_schema_routes.route('/api/data/history_ways', methods=['GET'])
+# def get_data_history_ways():
+#     try:
+#         query = """
+#         SELECT *
+#         FROM `bigquery-public-data.geo_openstreetmap.history_ways`
+#         LIMIT 100
+#         """
+#         query_job = client.query(query)
+#         df = query_job.to_dataframe()
+#         return jsonify(df.to_dict(orient="records")), 200
+#     except Exception as e:
+#         return jsonify({"success": False, "error": str(e)}), 500
+
+
+# @table_schema_routes.route('/api/data/planet_changesets', methods=['GET'])
+# def get_data_planet_changesets():
+#     try:
+#         query = """
+#         SELECT *
+#         FROM `bigquery-public-data.geo_openstreetmap.planet_changesets`
+#         LIMIT 100
+#         """
+#         query_job = client.query(query)
+#         df = query_job.to_dataframe()
+#         return jsonify(df.to_dict(orient="records")), 200
+#     except Exception as e:
+#         return jsonify({"success": False, "error": str(e)}), 500
