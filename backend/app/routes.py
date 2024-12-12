@@ -67,6 +67,27 @@ def get_table_schema():
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
 
+#single schma check
+@api_routes.route('/api/get_schema_for_table', methods=['POST'])
+def get_schema_for_table():
+    """
+    Fetch schema details for the selected table.
+    """
+    try:
+        data = request.get_json()
+        table_name = data.get("table_name")  # Get table name from the request
+        if not table_name:
+            return jsonify({"success": False, "error": "Table name is required"}), 400
+
+        table_ref = f"{DATASET}.{table_name}"
+        table = client.get_table(table_ref)  # Fetch table metadata
+
+        # Extract schema fields
+        schema = [{"name": field.name, "type": field.field_type, "mode": field.mode} for field in table.schema]
+
+        return jsonify({"success": True, "schema": schema}), 200
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 @api_routes.route('/api/dynamic_query', methods=['POST'])
 def dynamic_query():
