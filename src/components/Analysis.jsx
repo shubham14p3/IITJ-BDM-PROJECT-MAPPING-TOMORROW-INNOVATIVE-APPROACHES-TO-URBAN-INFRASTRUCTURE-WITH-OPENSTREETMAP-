@@ -1,9 +1,7 @@
-import Layout from '../layout/Layout'
+import React from 'react'
 
-const Analysis = () => {
-    return (
-        <Layout>Analysis</Layout>
-    )
+export const Analysis = () => {
+  return (
+    <div>Analysis</div>
+  )
 }
-
-export default Analysis

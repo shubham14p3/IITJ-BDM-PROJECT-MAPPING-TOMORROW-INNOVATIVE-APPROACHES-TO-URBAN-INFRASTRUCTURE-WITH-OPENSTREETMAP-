@@ -116,6 +116,15 @@ const Graph = () => {
   const handleCloseModal = () => {
     setSelectedGraph(null);
   };
+  const downloadImage = (imageUrl, imageName) => {
+    const link = document.createElement("a");
+    link.href = imageUrl;
+    link.download = `${imageName}.png`; // Save as PNG
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
 
   const handleProceed = () => {
     const successfulGraphs = graphStates
@@ -179,8 +188,15 @@ const Graph = () => {
                     borderRadius: 2,
                     boxShadow: 2,
                     cursor: "pointer",
+                    width: "100%",
+                    height: "250px", // Fixed height
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    overflow: "hidden", // Ensure no overflow
                   }}
-                  onClick={() => handleOpenModal(graph)} // Open modal on click
+                  onClick={() => handleOpenModal(graph)}
                 >
                   <Typography
                     variant="h6"
@@ -196,12 +212,13 @@ const Graph = () => {
                     src={graph.image}
                     alt={graph.name}
                     style={{
-                      width: "100%",
-                      height: "auto",
-                      borderRadius: "5px",
+                      maxWidth: "100%",
+                      maxHeight: "100%",
+                      objectFit: "contain", // Maintain aspect ratio within the fixed size
                     }}
                   />
                 </Box>
+
               </Grid>
             ))}
         </Grid>
@@ -224,11 +241,16 @@ const Graph = () => {
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
-            width: "80%",
+            width: "60vw", // Decreased width
+            maxHeight: "70vh", // Decreased height
             bgcolor: "background.paper",
             boxShadow: 24,
             p: 4,
             borderRadius: 2,
+            overflow: "auto", // Scroll if content overflows
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
         >
           {selectedGraph && (
@@ -244,16 +266,29 @@ const Graph = () => {
                 alt={selectedGraph.name}
                 style={{
                   width: "100%",
-                  height: "auto",
+                  maxHeight: "50vh", // Ensure the image fits well in the modal
+                  objectFit: "contain",
                   borderRadius: "5px",
                   marginBottom: 2,
                 }}
               />
-              <Typography variant="body1">
+              <Typography variant="body1" sx={{ textAlign: "center" }}>
                 {selectedGraph.description}
               </Typography>
               <Box textAlign="center" sx={{ marginTop: 4 }}>
-                <Button variant="contained" onClick={handleCloseModal}>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    downloadImage(
+                      selectedGraph.image,
+                      `${tableName}_${selectedGraph.name.replace(/\s+/g, "_")}`
+                    )
+                  }
+                  sx={{ marginRight: 2 }}
+                >
+                  Download Image
+                </Button>
+                <Button variant="outlined" onClick={handleCloseModal}>
                   Close
                 </Button>
               </Box>
@@ -261,6 +296,7 @@ const Graph = () => {
           )}
         </Box>
       </Modal>
+
     </Container>
   </Layout>
   );

@@ -5,7 +5,7 @@ source venv/Scripts/activate
 deactivate  //to exit
  
 
-pip install flask flask-cors google-cloud-bigquery pandas numpy
+pip install flask flask-cors google-cloud-bigquery pandas numpy networkx contextily geopandas
 
 pip install google-cloud-bigquery-storage
 
