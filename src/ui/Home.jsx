@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../ui/Footer';
-
+import logo from '../Design-of-New-Logo-of-IITJ-2.png';
 function Home() {
   const [step, setStep] = useState(0); // 0: Login, 1: Welcome Screen
   const [loginId, setLoginId] = useState('');
@@ -83,7 +83,7 @@ function Home() {
             >
               <Box sx={{ textAlign: 'center', mb: 2 }}>
                 <img
-                  src="https://iitj.ac.in/images/logo/Design-of-New-Logo-of-IITJ-2.png"
+                  src={logo}
                   alt="IITJ Logo"
                   width="80"
                 />
@@ -172,7 +172,7 @@ function Home() {
                     }}
                   >
                     <img
-                      src="https://iitj.ac.in/images/logo/Design-of-New-Logo-of-IITJ-2.png"
+                      src={logo}
                       alt="IITJ Logo"
                       width="80"
                     />

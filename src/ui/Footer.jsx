@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Typography, Grid, Link, IconButton } from '@mui/material';
 import { GitHub, LinkedIn, Facebook, Instagram } from '@mui/icons-material';
+import logo from '../Design-of-New-Logo-of-IITJ-2.png';
 
 function Footer() {
   return (
@@ -25,7 +26,7 @@ function Footer() {
           }}
         >
           <img
-            src="https://iitj.ac.in/images/logo/Design-of-New-Logo-of-IITJ-2.png"
+            src={logo}
             alt="IITJ Logo"
             width="40"
           />
