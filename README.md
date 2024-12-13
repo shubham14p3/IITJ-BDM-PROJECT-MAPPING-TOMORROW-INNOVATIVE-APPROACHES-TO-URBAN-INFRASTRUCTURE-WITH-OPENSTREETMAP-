@@ -30,7 +30,7 @@ To set up the environment and run the application, follow these steps:
 
 3. **Install Required Dependencies**:
    ```bash
-   pip install flask flask-cors google-cloud-bigquery pandas numpy networkx contextily geopandas folium google-cloud-bigquery-storage
+   pip install flask flask-cors google-cloud-bigquery pandas numpy networkx contextily geopandas folium google-cloud-bigquery-storage db-dtypes
    ```
 
 ## Summary of Routes
