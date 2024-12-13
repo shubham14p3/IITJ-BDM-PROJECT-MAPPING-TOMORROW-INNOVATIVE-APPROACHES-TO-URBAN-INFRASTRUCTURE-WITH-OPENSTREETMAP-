@@ -16,6 +16,7 @@ import {
   Card,
 } from "@mui/material";
 import Layout from "../layout/Layout";
+import { BASE_URL } from "./Constant";
 
 function DataAnalysis() {
   const [data, setData] = useState([]); // Holds the dataset
@@ -28,7 +29,7 @@ function DataAnalysis() {
     const fetchData = async () => {
       try {
         setLoading(true); // Set loading state to true
-        const response = await fetch("http://54.146.176.249:5000/api/merged_data");
+        const response = await fetch(`${BASE_URL}api/merged_data`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

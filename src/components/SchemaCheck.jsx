@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Box, Typography, Table, TableBody, TableCell, TableHead, TableRow, CircularProgress, Container, Button } from "@mui/material";
 import Layout from "../layout/Layout";
+import { BASE_URL } from "./Constant";
 
 const SchemaCheck = () => {
   const location = useLocation();
@@ -14,7 +15,7 @@ const SchemaCheck = () => {
     if (tableName) {
       const fetchSchema = async () => {
         try {
-          const response = await fetch("http://127.0.0.1:5000/api/get_schema_for_table", {
+          const response = await fetch(`${BASE_URL}api/get_schema_for_table`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

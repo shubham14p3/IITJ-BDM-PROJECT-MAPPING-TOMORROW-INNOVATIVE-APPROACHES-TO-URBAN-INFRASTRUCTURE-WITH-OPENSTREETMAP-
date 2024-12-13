@@ -21,6 +21,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import Layout from "../layout/Layout";
+import { BASE_URL } from "./Constant";
 
 function DataAnalysis() {
   const [data, setData] = useState(null);
@@ -40,7 +41,7 @@ function DataAnalysis() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://127.0.0.1:5000/api/data/fetch_all");
+        const response = await fetch(`${BASE_URL}api/data/fetch_all`);
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }

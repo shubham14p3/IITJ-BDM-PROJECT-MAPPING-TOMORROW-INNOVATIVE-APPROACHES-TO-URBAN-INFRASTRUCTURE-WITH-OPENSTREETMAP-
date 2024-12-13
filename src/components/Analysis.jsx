@@ -9,6 +9,8 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Layout from "../layout/Layout";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "./Constant";
 
 const Analysis = () => {
   const [roadNetworkGraph, setRoadNetworkGraph] = useState(null);
@@ -17,7 +19,11 @@ const Analysis = () => {
   const [loadingSpatialDistribution, setLoadingSpatialDistribution] = useState(false);
   const [selectedGraph, setSelectedGraph] = useState(null);
   const [setupMessage, setSetupMessage] = useState("");
+  const navigate = useNavigate();
 
+  const handleNext = () => {
+    navigate("/map");
+  };
   const fetchGraph = async (endpoint, setGraph, setLoading, graphName) => {
     setSetupMessage(
       `🚦 Selected the ${graphName}.\n📊 Selected 1000 limits.\n🔄 Setting up things for you...`
@@ -89,7 +95,7 @@ const Analysis = () => {
               color="primary"
               onClick={() =>
                 fetchGraph(
-                  "http://172.31.113.251:5000/api/graph/road_network",
+                  `${BASE_URL}api/graph/road_network`,
                   setRoadNetworkGraph,
                   setLoadingRoadNetwork,
                   "Road Network Graph"
@@ -137,7 +143,7 @@ const Analysis = () => {
               color="primary"
               onClick={() =>
                 fetchGraph(
-                  "http://172.31.113.251:5000/api/graph/spatial_distribution",
+                  `${BASE_URL}/api/graph/spatial_distribution`,
                   setSpatialDistributionGraph,
                   setLoadingSpatialDistribution,
                   "Spatial Distribution Graph"
@@ -231,6 +237,15 @@ const Analysis = () => {
             )}
           </Box>
         </Modal>
+      </Box>
+      <Box textAlign="center">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleNext}// Disable button if no table is selected
+        >
+          Proceed to 3D View
+        </Button>
       </Box>
     </Layout>
   );

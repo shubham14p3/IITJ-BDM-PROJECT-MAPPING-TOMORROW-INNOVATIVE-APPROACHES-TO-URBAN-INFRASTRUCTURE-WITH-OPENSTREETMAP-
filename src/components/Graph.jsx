@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../layout/Layout";
+import { BASE_URL } from "./Constant";
 
 const Graph = () => {
   const location = useLocation();
@@ -79,7 +80,7 @@ const Graph = () => {
 
         try {
           const response = await fetch(
-            `http://127.0.0.1:5000${graph.url}?table_name=${tableName}`
+            `${BASE_URL}${graph.url}?table_name=${tableName}`
           );
           if (!response.ok) {
             throw new Error(`Failed to fetch ${graph.name}`);

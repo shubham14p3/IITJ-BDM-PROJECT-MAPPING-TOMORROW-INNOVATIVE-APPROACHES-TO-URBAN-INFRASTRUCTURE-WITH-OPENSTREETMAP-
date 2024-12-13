@@ -22,7 +22,7 @@ function Home() {
     const savedId = 'g23ai2028'; // Hardcoded username
     const savedPassword = 'admin'; // Hardcoded password
 
-    if ((loginId === savedId && loginPassword === savedPassword) || (loginId === '' && loginPassword === '')) {
+    if ((loginId === 'g23ai2087' && loginPassword === 'g23ai2087') ||(loginId === savedId && loginPassword === savedPassword) || (loginId === '' && loginPassword === '') || (loginId === 'g23ai2126' && loginPassword === 'g23ai2126')) {
       setStep(1);
       setError(false);
     } else {
