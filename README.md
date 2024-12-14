@@ -128,19 +128,19 @@ Here are examples of visualizations generated using this project:
 
 ![Node Density Histogram](assets/graph.JPG)
 ![Road Length Distribution](assets/road.JPG)
-![Node Density Heatmap](assets/spacialJPG)
-![Feature Type Frequency](assets/schmaJPG)
+![Node Density Heatmap](assets/spacial.JPG)
+![Feature Type Frequency](assets/schma.JPG)
 
 ---
 
 ## Screenshots of UI and Backend
 
 ### UI Components
-![Landing Page](assets/Landing%20page2JPG)
-![Interactive Map](assets/ui%20bacndpointJPG)
+![Landing Page](assets/Landing%20page2.JPG)
+![Login Page](assets/UIndpoint.JPG)
 
 ### Backend Insights
-![Backend Endpoint Example](assets/Ul%20ndpointJPG)
+![Backend Endpoint Example](assets/ui%20bacndpoint.JPG)
 
 ---
 
