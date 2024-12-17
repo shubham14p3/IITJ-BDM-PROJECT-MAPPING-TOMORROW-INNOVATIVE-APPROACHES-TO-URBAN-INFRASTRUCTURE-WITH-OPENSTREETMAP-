@@ -21,6 +21,13 @@ This project utilizes **OpenStreetMap (OSM)** data to provide insights into urba
 
 ---
 
+---
+
+## Data Sets
+- **Boston:** [Datasets Boston](https://www.kaggle.com/datasets/shubham14p3/boston-mlops-assignment)
+- **Indian-Liver-Patient:** [Datasets Indian Liver Patient](https://www.kaggle.com/datasets/shubham14p3/indian-liver-patientmissing-mlops-assignment)
+
+---
 ## Requirements
 [Requirements](assets/BDM.pdf)
 
