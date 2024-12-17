@@ -21,6 +21,12 @@ This project utilizes **OpenStreetMap (OSM)** data to provide insights into urba
 
 ---
 
+## Requirements
+[Requirements](assets/BDM.pdf)
+
+## Project Report
+[Project Report](assets/BDMProject_Proposal.pdf)
+
 ## Setup Instructions
 
 ### Step 1: Create and Activate a Virtual Environment
